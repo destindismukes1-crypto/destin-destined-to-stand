@@ -419,16 +419,17 @@
 <p>Chapter 65. Still Sending</p>
 <p>On the third of November, he posted it again.<br>Workers apply free. Pay and per diem printed up front.<br>Alaska or Las Vegas. Free entry. No purchase required.<br>Still zero of five hundred.<br>He did not hide the zero. He printed it.<br>He did not promise a customer. He did not promise a sale.<br>He kept sending.<br>The book does not end here. The sending does not end here.<br>He is still standing. He is still posting.<br>The ending is not written.</p></main>
 <audio id="bookAudio" preload="none"></audio>
+<button id="playBtnTop" onclick="toggleAudio()" style="position:fixed;top:12px;right:12px;width:40px;height:40px;border-radius:50%;background:#111;color:#fff;font-size:18px;border:none;z-index:9999" aria-label="Play">▶</button>
 <button id="playBtn" onclick="toggleAudio()" style="position:fixed;bottom:12px;right:12px;width:40px;height:40px;border-radius:50%;background:#111;color:#fff;font-size:18px;border:none;z-index:9999" aria-label="Play">▶</button>
 <script>
 let parts=['book-audio-parts/part-01.mp3','book-audio-parts/part-02.mp3','book-audio-parts/part-03.mp3','book-audio-parts/part-04.mp3','book-audio-parts/part-05.mp3','book-audio-parts/part-06.mp3','book-audio-parts/part-07.mp3','book-audio-parts/part-08.mp3','book-audio-parts/part-09.mp3','book-audio-parts/part-10.mp3'];
 let idx=0, audio=document.getElementById('bookAudio');
-audio.addEventListener('ended', ()=>{ idx++; if(idx<parts.length){ audio.src=parts[idx]; audio.play(); } else { document.getElementById('playBtn').innerText='▶'; idx=0; } });
+function setGlyph(g){ document.getElementById('playBtn').innerText=g; document.getElementById('playBtnTop').innerText=g; }
+audio.addEventListener('ended', ()=>{ idx++; if(idx<parts.length){ audio.src=parts[idx]; audio.play(); } else { setGlyph('▶'); idx=0; } });
 function toggleAudio(){
-  let b=document.getElementById('playBtn');
-  if(!audio.paused){ audio.pause(); b.innerText='▶'; return; }
+  if(!audio.paused){ audio.pause(); setGlyph('▶'); return; }
   if(!audio.src){ audio.src=parts[idx]; }
-  audio.play().then(()=>{ b.innerText='⏸'; }).catch(()=>{ b.innerText='▶'; });
+  audio.play().then(()=>{ setGlyph('⏸'); }).catch(()=>{ setGlyph('▶'); });
 }
 </script>
 </body></html>
